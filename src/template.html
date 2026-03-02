@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearth</title>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <p class="navbar-dot">•</p>
+            <h1 class="navbar-logo">Hearth</h1>
+        </div>
+    </nav>
+
+    <main>
+        <div class="sidebar" id="sidebar">
+            <div class="project-btn-wrapper" id="add-project-btn-wrapper">
+                <button class="project-btn" id="add-project-btn">+ Add project</button>
+            </div>
+
+            <dialog id="add-project-dialog" class="add-project-dialog">
+                <h3 class="add-project-dialog-heading">Create New Project</h3>
+                <form method="dialog" id="form">
+                    <div class="form-div">
+                        <label for="project_title">Project name:</label>
+                        <input type="text" id="project_title" name="project_title">
+                    </div>
+
+                    <div class="form-div">
+                        <label for="project_description">Project description:</label>
+                        <textarea id="project_description" name="project_description"></textarea>
+                    </div>
+
+                    <div class="form-div-buttons">
+                        <button value="save" id="save-btn">Save project</button>
+                        <button value="cancel" id="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </dialog>
+        </div>
+    </main>
+</body>
+
+</html>
