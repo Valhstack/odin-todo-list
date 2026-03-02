@@ -1,7 +1,7 @@
 {
   "name": "template",
   "version": "1.0.0",
-  "description": "The repository to hold template that inclused webpack configurations",
+  "description": "The repository for the Todo list project for The Odin Project ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
