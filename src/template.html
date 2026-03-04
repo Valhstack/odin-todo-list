@@ -23,7 +23,7 @@
 
             <dialog id="add-project-dialog" class="add-project-dialog">
                 <h3 class="add-project-dialog-heading">Create New Project</h3>
-                <form method="dialog" id="form">
+                <form method="dialog" id="form-project">
                     <div class="form-div">
                         <label for="project_title">Project name:</label>
                         <input type="text" id="project_title" name="project_title">
@@ -37,6 +37,45 @@
                     <div class="form-div-buttons">
                         <button value="save" id="save-btn">Save project</button>
                         <button value="cancel" id="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </dialog>
+        </div>
+
+        <div class="main" id="main">
+            <div class="project-content inactive" id="project-content">
+                <div class="project-view-heading-wrapper">
+                    <h3 id="project-view-heading" class="project-view-heading">
+                        <span id="project-view-heading-text"></span>
+                    </h3>
+                    <p id="project-view-description" class="project-view-description">
+                        <span id="project-view-description-text"></span>
+                    </p>
+                </div>
+
+                <div class="project-view-lists" id="project-view-lists">
+                    <div class="add-list-btn-wrapper" id="add-list-btn-wrapper">
+                        <button class="add-list-btn" id="add-list-btn">+ Add list</button>
+                    </div>
+                </div>
+            </div>
+
+            <dialog id="add-list-dialog" class="add-list-dialog">
+                <h3 class="add-list-dialog-heading">Create New List</h3>
+                <form method="dialog" id="form-list">
+                    <div class="form-div">
+                        <label for="list_title">List name:</label>
+                        <input type="text" id="list_title" name="list_title">
+                    </div>
+
+                    <div class="form-div">
+                        <label for="list_description">List description:</label>
+                        <textarea id="list_description" name="list_description"></textarea>
+                    </div>
+
+                    <div class="form-div-buttons">
+                        <button value="save" id="save-list-btn">Save list</button>
+                        <button value="cancel" id="cancel-list-btn">Cancel</button>
                     </div>
                 </form>
             </dialog>

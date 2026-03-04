@@ -23,6 +23,18 @@ body {
 
 main {
     height: calc(100% - 64px);
+
+    display: flex;
+    gap: 32px;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 28px;
+
+    height: 100%;
 }
 
 nav {
@@ -101,7 +113,7 @@ nav {
     background-color: rgba(255, 255, 255, 0.03);
 }
 
-.project-btn:focus {
+.project-btn[data-selected="true"] {
     background-color: rgba(255, 255, 255, 0.04);
     border-left: 3px solid #C06A42;
     border-radius: 2px;
@@ -109,21 +121,25 @@ nav {
 
 #add-project-btn {
     color: #C1B2A8;
+    border: 1px dashed rgba(255,255,255,0.08);
 }
 
 #add-project-btn:hover {
     background-color: rgba(255, 255, 255, 0.03);
     color: #C06A42;
     opacity: 0.85;
+    border-color: #C06A42;
 }
 
-.add-project-dialog-heading {
+.add-project-dialog-heading,
+.add-list-dialog-heading {
     font-size: 20px;
     color: #E6DDD6;
     margin-bottom: 18px;
 }
 
-.add-project-dialog {
+.add-project-dialog,
+.add-list-dialog {
     width: 420px;
     max-width: 90vw;
 
@@ -138,13 +154,26 @@ nav {
     text-align: center;
 }
 
-.add-project-dialog label {
+.add-list-dialog {
+    width: 400px;
+    border-radius: 16px;
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.45);
+    padding: 22px 24px 20px 24px;
+}
+
+.add-project-dialog label,
+.add-list-dialog label {
     font-size: 17px;
     font-weight: 500;
     color: #CDBFB6;
 }
 
+.add-list-dialog label {
+    font-size: 15px;
+}
+
 .add-project-dialog input[type="text"],
+.add-list-dialog input[type="text"],
 textarea {
     background-color: #332C28;
     color: #E6DDD6;
@@ -166,6 +195,7 @@ textarea {
 }
 
 .add-project-dialog input[type="text"]:focus,
+.add-list-dialog input[type="text"]:focus,
 textarea:focus {
     outline: none;
 
@@ -173,7 +203,8 @@ textarea:focus {
     box-shadow: 0 0 0 2px rgba(192, 106, 66, 0.25);
 }
 
-#form {
+#form-project,
+#form-list {
     display: flex;
     flex-direction: column;
 
@@ -199,7 +230,8 @@ textarea:focus {
     gap: 12px;
 }
 
-#cancel-btn {
+#cancel-btn,
+#cancel-list-btn {
     background-color: transparent;
     color: #CDBFB6;
     padding: 8px 14px;
@@ -209,11 +241,13 @@ textarea:focus {
     font-size: 15px;
 }
 
-#cancel-btn:hover {
+#cancel-btn:hover,
+#cancel-list-btn:hover {
     background-color: rgba(255, 255, 255, 0.04);
 }
 
-#save-btn {
+#save-btn,
+#save-list-btn {
     background-color: #C06A42;
     color: #EADFD7;
     padding: 8px 16px;
@@ -223,6 +257,75 @@ textarea:focus {
     font-size: 15px;
 }
 
-#save-btn:hover {
+#save-btn:hover,
+#save-list-btn:hover {
     background-color: #B8643E;
+}
+
+.project-view-heading-wrapper {
+    padding: 28px 32px 14px 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.project-view-lists {
+    display: flex;
+    gap: 20px;
+    padding: 24px 32px;
+
+    justify-content: space-between;
+
+    background-color: transparent;
+    border-radius: 12px;
+}
+
+.project-view-heading {
+    font-size: 28px;
+    color: #E6DDD6;
+}
+
+.project-view-description {
+    font-size: 15px;
+    color: #B6A79E;
+    margin-top: 6px;
+}
+
+.list-btn,
+.add-list-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    color: #E6DDD6;
+}
+
+.list-btn {
+    padding: 16px 22px;
+    border-radius: 12px;
+    min-width: 160px;
+}
+
+.list-btn:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.add-list-btn {
+    font-size: 14px;
+    color: #B6A79E;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.add-list-btn:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: #C06A42;
+    border-color: #C06A42;
+}
+
+.list-btn[data-selected="true"] {
+    background: #403631;
+    outline: 1px solid #C06A42;
+}
+
+.inactive {
+    display: none;
 }

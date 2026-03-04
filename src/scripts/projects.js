@@ -1,4 +1,4 @@
-import { generateSideBarContent } from "./render.js"
+import { generateProjectDetailsView } from "./render.js"
 
 const projects = [];
 
@@ -10,20 +10,22 @@ class Project {
     }
 }
 
-projects.push(new Project("Default", "This is a default project."));
-
 const addNewProject = (title, description) => {
     projects.push(new Project(title, description));
 }
 
-const attachListeners = (btns) => {
-    for (let btn of btns) {
-        btn.addEventListener("click", showProjectDetails);
-    }
-}
-
 function showProjectDetails(e) {
+    const currentBtn = e.currentTarget;
+    const selectedBtn = document.querySelector('.project-btn[data-selected="true"]');
 
+    if (selectedBtn && selectedBtn !== currentBtn) {
+        selectedBtn.removeAttribute("data-selected");
+    }
+
+    currentBtn.dataset.selected = "true";
+
+    const projectID = e.currentTarget.dataset.id;
+    generateProjectDetailsView(projectID);
 }
 
-export { projects, addNewProject, attachListeners };
+export { projects, addNewProject, showProjectDetails };
