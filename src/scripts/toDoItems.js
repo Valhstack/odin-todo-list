@@ -1,6 +1,6 @@
 const toDoItems = [];
 
-class Items {
+class Item {
     constructor(title, description, dueDate, priority, isDone, notes, listID) {
         this.title = title;
         this.description = description;
@@ -13,4 +13,8 @@ class Items {
     }
 }
 
-export { toDoItems };
+const addNewItem = (title, description, dueDate, priority, isDone, notes, listID) => {
+    toDoItems.push(new Item(title, description, dueDate, priority, isDone, notes, listID))
+}
+
+export { toDoItems, addNewItem };

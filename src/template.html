@@ -23,7 +23,7 @@
 
             <dialog id="add-project-dialog" class="add-project-dialog">
                 <h3 class="add-project-dialog-heading">Create New Project</h3>
-                <form method="dialog" id="form-project">
+                <form method="dialog" id="form-project" class="form-project">
                     <div class="form-div">
                         <label for="project_title">Project name:</label>
                         <input type="text" id="project_title" name="project_title">
@@ -54,15 +54,28 @@
                 </div>
 
                 <div class="project-view-lists" id="project-view-lists">
-                    <div class="add-list-btn-wrapper" id="add-list-btn-wrapper">
-                        <button class="add-list-btn" id="add-list-btn">+ Add list</button>
+                    <div id="list-btns-wrapper" class="list-btns-wrapper">
+                        <div class="add-list-btn-wrapper" id="add-list-btn-wrapper">
+                            <button class="add-list-btn" id="add-list-btn">+ Add list</button>
+                        </div>
+                    </div>
+
+                    <div class="list-description-wrapper" id="list-description-wrapper">
+                        <p class="list-description" id="list-description"><span id="list-description-text"></span></p>
+                    </div>
+                </div>
+
+                <div class="list-view-tasks" id="list-view-tasks">
+                    <h3 id="list-view-heading" class="list-view-heading">Tasks</h3>
+                    <div class="add-item-btn-wrapper" id="add-item-btn-wrapper">
+                        <button class="add-item-btn" id="add-item-btn">+ Add Task</button>
                     </div>
                 </div>
             </div>
 
             <dialog id="add-list-dialog" class="add-list-dialog">
                 <h3 class="add-list-dialog-heading">Create New List</h3>
-                <form method="dialog" id="form-list">
+                <form method="dialog" id="form-list" class="form-list">
                     <div class="form-div">
                         <label for="list_title">List name:</label>
                         <input type="text" id="list_title" name="list_title">
@@ -79,6 +92,47 @@
                     </div>
                 </form>
             </dialog>
+
+            <dialog id="add-task-dialog" class="add-task-dialog">
+                <h3 class="add-task-dialog-heading">Create New Task</h3>
+                <form method="dialog" id="form-task" class="form-task">
+                    <div class="form-div">
+                        <label for="task_title">Task name:</label>
+                        <input type="text" id="task_title" name="task_title">
+                    </div>
+
+                    <div class="form-div">
+                        <label for="task_description">Task description:</label>
+                        <textarea id="task_description" name="task_description"></textarea>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="task_dueDate">Task Due Date:</label>
+                        <input type="date" id="task_dueDate" name="task_dueDate">
+                    </div>
+
+                    <div class="form-div">
+                        <label for="task_priority">Choose task's priority:</label>
+                        <select name="task_priority" id="task_priority">
+                            <option value="">--Please choose the priority--</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="task_notes">Task notes:</label>
+                        <textarea id="task_notes" name="task_notes"></textarea>
+                    </div>
+
+                    <div class="form-div-buttons">
+                        <button value="save" id="save-task-btn">Save task</button>
+                        <button value="cancel" id="cancel-task-btn" formnovalidate>Cancel</button>
+                    </div>
+                </form>
+            </dialog>
+
         </div>
     </main>
 </body>

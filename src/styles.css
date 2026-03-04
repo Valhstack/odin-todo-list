@@ -28,6 +28,11 @@ main {
     gap: 32px;
 }
 
+#main {
+    width: 100%;
+    max-width: 680px;
+}
+
 .project-content {
     display: flex;
     flex-direction: column;
@@ -121,7 +126,7 @@ nav {
 
 #add-project-btn {
     color: #C1B2A8;
-    border: 1px dashed rgba(255,255,255,0.08);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
 }
 
 #add-project-btn:hover {
@@ -154,6 +159,19 @@ nav {
     text-align: center;
 }
 
+.add-task-dialog {
+    width: 520px;
+    padding: 36px 42px;
+    border-radius: 14px;
+
+    background: #4B403A;
+
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.45);
+
+    border: none;
+}
+
 .add-list-dialog {
     width: 400px;
     border-radius: 16px;
@@ -162,7 +180,8 @@ nav {
 }
 
 .add-project-dialog label,
-.add-list-dialog label {
+.add-list-dialog label,
+.add-task-dialog label {
     font-size: 17px;
     font-weight: 500;
     color: #CDBFB6;
@@ -172,8 +191,13 @@ nav {
     font-size: 15px;
 }
 
+.add-task-dialog label {
+    font-size: 18px;
+}
+
 .add-project-dialog input[type="text"],
 .add-list-dialog input[type="text"],
+.add-task-dialog input[type="text"],
 textarea {
     background-color: #332C28;
     color: #E6DDD6;
@@ -182,6 +206,10 @@ textarea {
     border: 1px solid rgba(255, 255, 255, 0.10);
 
     width: 100%;
+}
+
+textarea {
+    min-height: 80px;
 }
 
 .add-project-dialog input[type="text"] {
@@ -196,6 +224,7 @@ textarea {
 
 .add-project-dialog input[type="text"]:focus,
 .add-list-dialog input[type="text"]:focus,
+.add-task-dialog input[type="text"]:focus,
 textarea:focus {
     outline: none;
 
@@ -203,8 +232,9 @@ textarea:focus {
     box-shadow: 0 0 0 2px rgba(192, 106, 66, 0.25);
 }
 
-#form-project,
-#form-list {
+.form-project,
+.form-list,
+.form-task {
     display: flex;
     flex-direction: column;
 
@@ -231,7 +261,8 @@ textarea:focus {
 }
 
 #cancel-btn,
-#cancel-list-btn {
+#cancel-list-btn,
+#cancel-task-btn {
     background-color: transparent;
     color: #CDBFB6;
     padding: 8px 14px;
@@ -242,12 +273,14 @@ textarea:focus {
 }
 
 #cancel-btn:hover,
-#cancel-list-btn:hover {
+#cancel-list-btn:hover,
+#cancel-task-btn:hover {
     background-color: rgba(255, 255, 255, 0.04);
 }
 
 #save-btn,
-#save-list-btn {
+#save-list-btn,
+#save-task-btn {
     background-color: #C06A42;
     color: #EADFD7;
     padding: 8px 16px;
@@ -258,7 +291,8 @@ textarea:focus {
 }
 
 #save-btn:hover,
-#save-list-btn:hover {
+#save-list-btn:hover,
+#save-task-btn:hover {
     background-color: #B8643E;
 }
 
@@ -269,13 +303,22 @@ textarea:focus {
 
 .project-view-lists {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     padding: 24px 32px;
 
     justify-content: space-between;
 
     background-color: transparent;
     border-radius: 12px;
+
+    flex-direction: column;
+}
+
+.list-btns-wrapper {
+    display: flex;
+    gap: 20px;
+
+    justify-content: space-between;
 }
 
 .project-view-heading {
@@ -315,7 +358,8 @@ textarea:focus {
     border: 1px dashed rgba(255, 255, 255, 0.08);
 }
 
-.add-list-btn:hover {
+.add-list-btn:hover,
+.add-item-btn:hover {
     background: rgba(255, 255, 255, 0.03);
     color: #C06A42;
     border-color: #C06A42;
@@ -324,6 +368,199 @@ textarea:focus {
 .list-btn[data-selected="true"] {
     background: #403631;
     outline: 1px solid #C06A42;
+}
+
+.list-description {
+    font-size: 17px;
+    color: #A99E95;
+    line-height: 1.5;
+}
+
+.list-view-tasks {
+    padding: 0 32px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 24px;
+}
+
+.add-item-btn {
+    font-size: 14px;
+    color: #B6A79E;
+    background-color: transparent;
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+.list-view-heading {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #9A8F86;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.todo-item-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    border-radius: 8px;
+
+    width: 100%;
+
+    justify-content: space-between;
+
+    position: relative;
+}
+
+.todo-item-wrapper:hover {
+    background: rgba(255, 255, 255, 0.035);
+    border-radius: 10px;
+}
+
+.todo-item-wrapper:has(input:checked) {
+    opacity: 0.6;
+}
+
+.todo-item-wrapper:has(input:checked)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: currentColor;
+    opacity: 0.6;
+    left: 3.25rem;
+    right: 1.5rem;
+    background: rgba(230, 221, 214, 0.30);
+}
+
+input[type="checkbox"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    appearance: none;
+    /* For iOS < 15 to remove gradient background */
+    background-color: #fff;
+    /* Not removed via appearance */
+    margin: 0;
+}
+
+input[type="checkbox"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    /* Remove most all native input styles */
+    appearance: none;
+    /* For iOS < 15 */
+    background-color: var(--form-background);
+    /* Not removed via appearance */
+    margin: 0;
+
+    font: inherit;
+    color: #C06A42;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid #C06A42;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+    /* Windows High Contrast Mode */
+    background-color: #C06A42;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+.checkbox-wrapper {
+    display: flex;
+    gap: 14px;
+
+    align-items: center;
+}
+
+.checkbox-wrapper label {
+    font-size: 18px;
+    color: #E6DDD6;
+    flex-grow: 1;
+}
+
+.metadata-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.due-date {
+    color: #A99E95;
+    font-size: 16px;
+}
+
+.item-priority {
+    font-size: 16px;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.low-priority {
+    color: #6F8F6B;
+}
+
+.medium-priority {
+    color: #D2A84C;
+}
+
+.high-priority {
+    color: #C05A42;
+}
+
+.add-task-dialog-heading {
+    font-size: 26px;
+    color: #E6DDD6;
+
+    text-align: center;
+}
+
+.add-task-dialog input[type="date"] {
+    height: 40px;
+    border-radius: 8px;
+
+    background: rgba(0, 0, 0, 0.28);
+    color: #E6DDD6;
+
+    border: none;
+    padding: 0 12px;
+}
+
+.add-task-dialog select {
+    height: 40px;
+    border-radius: 8px;
+
+    background: rgba(0, 0, 0, 0.28);
+    color: #E6DDD6;
+
+    border: none;
+    padding: 0 12px;
+
+    font-size: 16px;
 }
 
 .inactive {

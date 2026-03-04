@@ -1,4 +1,5 @@
 import { projects } from "./projects.js";
+import { generateListDetailsView } from "./render.js";
 
 const lists = [];
 
@@ -25,7 +26,10 @@ function showListDetails(e) {
         selectedBtn.removeAttribute("data-selected");
     }
 
+    document.getElementById("list-description-text").textContent = lists.find(obj => obj.ID === listID).description;
+
     currentBtn.dataset.selected = "true";
+    generateListDetailsView(listID);
 }
 
 export { lists, addNewList, showListDetails };

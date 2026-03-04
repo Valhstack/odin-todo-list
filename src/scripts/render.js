@@ -48,9 +48,9 @@ const generateContent = (function () {
 
     const renderLists = (projectID) => {
         // list-btn-wrapper and list-btn
-        reset("project-view-lists", ".list-btn-wrapper");
+        reset("list-btns-wrapper", ".list-btn-wrapper");
 
-        const projectViewLists = document.getElementById("project-view-lists");
+        const projectViewLists = document.getElementById("list-btns-wrapper");
 
         document.getElementById("project-content").classList.remove("inactive");
 
@@ -74,10 +74,96 @@ const generateContent = (function () {
         attachListeners(listBtns, showListDetails);
     };
 
-    return { renderProjects, renderLists };
+    const renderItems = (listID) => {
+        reset("list-view-tasks", ".todo-item-wrapper");
+
+        const newTask = document.getElementById("add-item-btn-wrapper");
+        const listViewTasks = document.getElementById("list-view-tasks");
+
+        let list = lists.find(obj => obj.ID === listID);
+
+        for (let item of toDoItems) {
+            if (item.listID === listID) {
+                listViewTasks.insertBefore(createCheckboxContainer(item.title, item.dueDate, item.priority, item.ID), newTask);
+            }
+        }
+    };
+
+    const createCheckboxContainer = (title, dueDate, priority, ID) => {
+        /*
+            div outer wrapper class = "todo-item-wrapper"
+                div wrapper for checkbox class = "checkbox-wrapper"
+                    label for item.id
+                    input checkbox name = item.title id=item.id
+                div wrapper for due date and priority class = "metadata-wrapper"
+                    p item.dueDate class = "due-date"
+                    p • item.priority is set by adding appropriate class
+        */
+
+        const divOuterWrapper = document.createElement("div");
+        divOuterWrapper.classList.add("todo-item-wrapper");
+        divOuterWrapper.dataset.id = ID;
+
+        const divCheckboxWrapper = document.createElement("div");
+        divCheckboxWrapper.classList.add("checkbox-wrapper");
+
+        const labelCheckbox = document.createElement("label");
+        labelCheckbox.setAttribute("for", ID);
+        labelCheckbox.textContent = title;
+
+        const inputCheckbox = document.createElement("input");
+        inputCheckbox.setAttribute("type", "checkbox");
+        inputCheckbox.setAttribute("name", title);
+        inputCheckbox.setAttribute("id", ID);
+
+        divCheckboxWrapper.appendChild(inputCheckbox);
+        divCheckboxWrapper.appendChild(labelCheckbox);
+
+        // first div is assembled
+
+        const divDueDatePriorityWrapper = document.createElement("div");
+        divDueDatePriorityWrapper.classList.add("metadata-wrapper");
+
+        const pDueDate = document.createElement("p");
+        pDueDate.classList.add("due-date");
+        pDueDate.textContent = dueDate;
+
+        const pPriority = document.createElement("p");
+        pPriority.classList.add("item-priority")
+
+        switch (priority) {
+            case "Low":
+                pPriority.textContent = "Low";
+                pPriority.classList.add("low-priority");
+                break;
+            case "Medium":
+                pPriority.textContent = "Medium";
+                pPriority.classList.add("medium-priority");
+                break;
+            case "High":
+                pPriority.textContent = "High";
+                pPriority.classList.add("high-priority");
+                break;
+        }
+
+        divDueDatePriorityWrapper.appendChild(pDueDate);
+        divDueDatePriorityWrapper.appendChild(pPriority);
+
+        // second div assembled
+
+        divOuterWrapper.appendChild(divCheckboxWrapper);
+        divOuterWrapper.appendChild(divDueDatePriorityWrapper);
+
+        // main div assembled
+
+        return divOuterWrapper;
+    };
+
+    return { renderProjects, renderLists, renderItems };
 })();
 
 const generateSideBarContent = () => generateContent.renderProjects();
 const generateProjectDetailsView = (projectID) => generateContent.renderLists(projectID);
+const generateListDetailsView = (listID) => generateContent.renderItems(listID);
 
-export { generateSideBarContent, generateProjectDetailsView };
+export { generateSideBarContent, generateProjectDetailsView, generateListDetailsView };
