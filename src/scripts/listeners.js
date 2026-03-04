@@ -1,6 +1,7 @@
-import { projects } from "./projects.js";
+import { projects, addNewProject } from "./projects.js";
 import { lists } from "./lists.js";
 import { toDoItems } from "./toDoItems.js";
+import { generateSideBarContent } from "./render.js"
 
 export function buttonsListeners() {
     const dialog = document.getElementById("add-project-dialog");
@@ -16,6 +17,9 @@ export function buttonsListeners() {
 
         if (action === "save") {
             const formData = new FormData(form);
+
+            addNewProject(formData.get("project_title"), formData.get("project_description"));
+            generateSideBarContent();
 
             form.reset();
         }

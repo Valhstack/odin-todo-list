@@ -1,3 +1,5 @@
+import { generateSideBarContent } from "./render.js"
+
 const projects = [];
 
 class Project {
@@ -10,4 +12,18 @@ class Project {
 
 projects.push(new Project("Default", "This is a default project."));
 
-export { projects };
+const addNewProject = (title, description) => {
+    projects.push(new Project(title, description));
+}
+
+const attachListeners = (btns) => {
+    for (let btn of btns) {
+        btn.addEventListener("click", showProjectDetails);
+    }
+}
+
+function showProjectDetails(e) {
+
+}
+
+export { projects, addNewProject, attachListeners };
