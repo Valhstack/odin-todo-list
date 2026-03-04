@@ -2,6 +2,7 @@ import { projects, showProjectDetails } from "./projects.js";
 import { lists, showListDetails } from "./lists.js";
 import { attachListeners } from "./listeners.js"
 import { toDoItems } from "./toDoItems.js";
+import { formatDate } from "./formatDate.js";
 
 const generateContent = (function () {
     const renderProjects = () => {
@@ -84,7 +85,7 @@ const generateContent = (function () {
 
         for (let item of toDoItems) {
             if (item.listID === listID) {
-                listViewTasks.insertBefore(createCheckboxContainer(item.title, item.dueDate, item.priority, item.ID), newTask);
+                listViewTasks.insertBefore(createCheckboxContainer(item.title, formatDate(item.dueDate), item.priority, item.ID), newTask);
             }
         }
     };

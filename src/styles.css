@@ -30,7 +30,11 @@ main {
 
 #main {
     width: 100%;
-    max-width: 680px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
 }
 
 .project-content {
@@ -40,6 +44,7 @@ main {
     gap: 28px;
 
     height: 100%;
+    width: 100%;
 }
 
 nav {
@@ -76,7 +81,8 @@ nav {
 }
 
 .sidebar {
-    width: 240px;
+    min-width: 240px;
+    width: calc(100% / 3);
     height: 100%;
 
     padding: 24px 12px;
@@ -298,7 +304,6 @@ textarea:focus {
 
 .project-view-heading-wrapper {
     padding: 28px 32px 14px 32px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .project-view-lists {
@@ -330,6 +335,9 @@ textarea:focus {
     font-size: 15px;
     color: #B6A79E;
     margin-top: 6px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding-bottom: 14px;
 }
 
 .list-btn,

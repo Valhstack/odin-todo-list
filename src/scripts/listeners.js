@@ -1,7 +1,7 @@
 import { addNewProject } from "./projects.js";
 import { addNewList } from "./lists.js";
-import { toDoItems } from "./toDoItems.js";
-import { generateSideBarContent, generateProjectDetailsView } from "./render.js"
+import { addNewItem, toDoItems } from "./toDoItems.js";
+import { generateSideBarContent, generateProjectDetailsView, generateListDetailsView } from "./render.js";
 
 function buttonsListeners() {
     const dialogProject = document.getElementById("add-project-dialog");
@@ -17,7 +17,12 @@ function buttonsListeners() {
     });
 
     document.getElementById("add-item-btn").addEventListener("click", () => {
-        dialogTask.showModal();
+        if (!document.querySelector('.list-btn[data-selected="true"]')) {
+            alert("Please select a list first to add a task to it");
+        }
+        else {
+            dialogTask.showModal();
+        }
     });
 
     const formProject = document.getElementById("form-project");
@@ -56,7 +61,11 @@ function buttonsListeners() {
 
         if (action === "save") {
             const formData = new FormData(formTask);
-            //const currentList = document.querySelector('.list-btn[data-selected="true"]');
+            const currentList = document.querySelector('.list-btn[data-selected="true"]');
+
+            addNewItem(formData.get("task_title"), formData.get("task_description"), formData.get("task_dueDate"), formData.get("task_priority"), false, formData.get("task_notes"), currentList.dataset.id);
+
+            generateListDetailsView(currentList.dataset.id);
         }
 
         formTask.reset();
