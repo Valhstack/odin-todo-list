@@ -1,12 +1,13 @@
 import { addNewProject } from "./projects.js";
 import { addNewList } from "./lists.js";
-import { addNewItem, toDoItems } from "./toDoItems.js";
+import { addNewItem, toDoItems, editExistingItem, deleteItem } from "./toDoItems.js";
 import { generateSideBarContent, generateProjectDetailsView, generateListDetailsView } from "./render.js";
 
 function buttonsListeners() {
     const dialogProject = document.getElementById("add-project-dialog");
     const dialogList = document.getElementById("add-list-dialog");
     const dialogTask = document.getElementById("add-task-dialog");
+    const dialogDeleteTask = document.getElementById("delete-task-dialog");
 
     document.getElementById("add-project-btn").addEventListener("click", () => {
         dialogProject.showModal();
@@ -67,8 +68,40 @@ function buttonsListeners() {
 
             generateListDetailsView(currentList.dataset.id);
         }
+        else if (action === "save-edit") {
+            const formData = new FormData(formTask);
+            const currentItem = document.querySelector('.todo-item-wrapper[data-selected="true"]');
+            const currentList = document.querySelector('.list-btn[data-selected="true"]');
+
+            editExistingItem(formData.get("task_title"), formData.get("task_description"), formData.get("task_dueDate"), formData.get("task_priority"), formData.get("task_notes"), currentItem.dataset.id);
+
+            generateListDetailsView(currentList.dataset.id);
+            const updatedItem = document.querySelector(`.todo-item-wrapper[data-id="${currentItem.dataset.id}"]`);
+            updatedItem.querySelector(".task-details-outer-wrapper").classList.remove("inactive");
+        }
 
         formTask.reset();
+    });
+
+    document.getElementById("delete-task-btn").addEventListener("click", () => {
+        dialogDeleteTask.close("delete");
+    });
+
+    document.getElementById("cancel-delete-task-btn").addEventListener("click", () => {
+        dialogDeleteTask.close("cancel");
+    });
+
+    dialogDeleteTask.addEventListener("close", () => {
+        const action = dialogDeleteTask.returnValue;
+
+        if (action === "delete") {
+            const currentItem = document.querySelector('.todo-item-wrapper[data-selected="true"]');
+            const currentList = document.querySelector('.list-btn[data-selected="true"]');
+
+            deleteItem(currentItem.dataset.id);
+
+            generateListDetailsView(currentList.dataset.id);
+        }
     });
 
     // changing the isDone state of todo item

@@ -26,7 +26,7 @@
                 <form method="dialog" id="form-project" class="form-project">
                     <div class="form-div">
                         <label for="project_title">Project name:</label>
-                        <input type="text" id="project_title" name="project_title">
+                        <input type="text" id="project_title" name="project_title" required>
                     </div>
 
                     <div class="form-div">
@@ -36,7 +36,7 @@
 
                     <div class="form-div-buttons">
                         <button value="save" id="save-btn">Save project</button>
-                        <button value="cancel" id="cancel-btn">Cancel</button>
+                        <button value="cancel" id="cancel-btn" formnovalidate>Cancel</button>
                     </div>
                 </form>
             </dialog>
@@ -78,7 +78,7 @@
                 <form method="dialog" id="form-list" class="form-list">
                     <div class="form-div">
                         <label for="list_title">List name:</label>
-                        <input type="text" id="list_title" name="list_title">
+                        <input type="text" id="list_title" name="list_title" required>
                     </div>
 
                     <div class="form-div">
@@ -88,7 +88,7 @@
 
                     <div class="form-div-buttons">
                         <button value="save" id="save-list-btn">Save list</button>
-                        <button value="cancel" id="cancel-list-btn">Cancel</button>
+                        <button value="cancel" id="cancel-list-btn" formnovalidate>Cancel</button>
                     </div>
                 </form>
             </dialog>
@@ -98,7 +98,7 @@
                 <form method="dialog" id="form-task" class="form-task">
                     <div class="form-div">
                         <label for="task_title">Task name:</label>
-                        <input type="text" id="task_title" name="task_title">
+                        <input type="text" id="task_title" name="task_title" required>
                     </div>
 
                     <div class="form-div">
@@ -108,12 +108,12 @@
 
                     <div class="form-div">
                         <label for="task_dueDate">Task Due Date:</label>
-                        <input type="date" id="task_dueDate" name="task_dueDate">
+                        <input type="date" id="task_dueDate" name="task_dueDate" required>
                     </div>
 
                     <div class="form-div">
                         <label for="task_priority">Choose task's priority:</label>
-                        <select name="task_priority" id="task_priority">
+                        <select name="task_priority" id="task_priority" required>
                             <option value="">--Please choose the priority--</option>
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
@@ -133,6 +133,18 @@
                 </form>
             </dialog>
 
+            <dialog id="delete-task-dialog" class="delete-task-dialog">
+                <div class="delete-task-dialog-wrapper">
+                    <div class="delete-task-wrapper">
+                        <h3 class="delete-task-heading">Delete task?</h3>
+                        <p class="delete-task-subtext">This action cannot be undone.</p>
+                    </div>
+                    <div class="delete-task-btns-wrapper">
+                        <button value="delete" id="delete-task-btn">Delete</button>
+                        <button value="cancel" id="cancel-delete-task-btn">Cancel</button>
+                    </div>
+                </div>
+            </dialog>
         </div>
     </main>
 </body>

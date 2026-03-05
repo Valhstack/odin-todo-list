@@ -1,7 +1,7 @@
 import { projects, showProjectDetails } from "./projects.js";
 import { lists, showListDetails } from "./lists.js";
 import { attachListeners } from "./listeners.js"
-import { toDoItems } from "./toDoItems.js";
+import { toDoItems, showTaskDetails, editTask, deleteTask } from "./toDoItems.js";
 import { formatDate } from "./formatDate.js";
 
 const generateContent = (function () {
@@ -81,29 +81,43 @@ const generateContent = (function () {
         const newTask = document.getElementById("add-item-btn-wrapper");
         const listViewTasks = document.getElementById("list-view-tasks");
 
-        let list = lists.find(obj => obj.ID === listID);
+        //let list = lists.find(obj => obj.ID === listID);
 
         for (let item of toDoItems) {
             if (item.listID === listID) {
-                listViewTasks.insertBefore(createCheckboxContainer(item.title, formatDate(item.dueDate), item.priority, item.ID), newTask);
+                listViewTasks.insertBefore(createTaskContainer(item.title, item.description, formatDate(item.dueDate), item.priority, item.notes, item.ID), newTask);
             }
         }
+
+        const itemsDivs = document.getElementsByClassName("todo-item-wrapper");
+        attachListeners(itemsDivs, showTaskDetails);
+
+        const editBtns = document.getElementsByClassName("task-edit-btn");
+        attachListeners(editBtns, editTask);
+
+        const deleteBtns = document.getElementsByClassName("task-delete-btn");
+        attachListeners(deleteBtns, deleteTask);
     };
 
-    const createCheckboxContainer = (title, dueDate, priority, ID) => {
+    const createTaskContainer = (title, description, dueDate, priority, notes, ID) => {
         /*
-            div outer wrapper class = "todo-item-wrapper"
-                div wrapper for checkbox class = "checkbox-wrapper"
-                    label for item.id
-                    input checkbox name = item.title id=item.id
-                div wrapper for due date and priority class = "metadata-wrapper"
-                    p item.dueDate class = "due-date"
-                    p • item.priority is set by adding appropriate class
+            div outer wrapper class = "todo-item-wrapper" -> div V -> divOuterWrapper
+                div class = "item-closed-wrapper" -> div III
+                    div wrapper for checkbox class = "checkbox-wrapper" -> div I -> divCheckboxWrapper
+                        label for item.id
+                        input checkbox name = item.title id=item.id
+                    div wrapper for due date and priority class = "metadata-wrapper" -> div II -> divDueDatePriorityWrapper
+                        p item.dueDate class = "due-date"
+                        p • item.priority is set by adding appropriate class
+                div item open -> div IV
         */
 
         const divOuterWrapper = document.createElement("div");
         divOuterWrapper.classList.add("todo-item-wrapper");
         divOuterWrapper.dataset.id = ID;
+
+        const divItemClosed = document.createElement("div");
+        divItemClosed.classList.add("item-closed-wrapper");
 
         const divCheckboxWrapper = document.createElement("div");
         divCheckboxWrapper.classList.add("checkbox-wrapper");
@@ -116,11 +130,12 @@ const generateContent = (function () {
         inputCheckbox.setAttribute("type", "checkbox");
         inputCheckbox.setAttribute("name", title);
         inputCheckbox.setAttribute("id", ID);
+        inputCheckbox.classList.add("task-checkbox");
 
         divCheckboxWrapper.appendChild(inputCheckbox);
         divCheckboxWrapper.appendChild(labelCheckbox);
 
-        // first div is assembled
+        // div I is assembled
 
         const divDueDatePriorityWrapper = document.createElement("div");
         divDueDatePriorityWrapper.classList.add("metadata-wrapper");
@@ -147,15 +162,94 @@ const generateContent = (function () {
                 break;
         }
 
+        // div II assembled
+
         divDueDatePriorityWrapper.appendChild(pDueDate);
         divDueDatePriorityWrapper.appendChild(pPriority);
 
-        // second div assembled
+        // div III assembled
 
-        divOuterWrapper.appendChild(divCheckboxWrapper);
-        divOuterWrapper.appendChild(divDueDatePriorityWrapper);
+        divItemClosed.appendChild(divCheckboxWrapper);
+        divItemClosed.appendChild(divDueDatePriorityWrapper);
 
-        // main div assembled
+        const divItemOpen = createTaskDetailsContainer(description, notes);
+        divItemOpen.id = ID;
+
+        // div V assembled
+
+        divOuterWrapper.appendChild(divItemClosed);
+        divOuterWrapper.appendChild(divItemOpen);
+
+        return divOuterWrapper;
+    };
+
+    const createTaskDetailsContainer = (description, notes) => {
+        /*
+            div class = "task-details-outer-wrapper" -> divOuterWrapper - IV
+                div class = "task-details-wrapper" -> divInnerWrapper - II
+                    p class = "task-description"
+                    div class="notes-wrapper" -> divNotesWrapper - I
+                        h3 Notes class="notes-heading"
+                        p class = "task-notes"
+                div class = "control-btns-wrapper" -> divBtnsWrapper - III
+                    button edit class = "task-edit-btn"
+                    button delete class = "task-delete-btn"
+        */
+
+        // creating all the elements
+
+        const divOuterWrapper = document.createElement("div");
+        divOuterWrapper.classList.add("task-details-outer-wrapper");
+        divOuterWrapper.classList.add("inactive");
+
+        const divInnerWrapper = document.createElement("div");
+        divInnerWrapper.classList.add("task-details-wrapper");
+
+        const divNotesWrapper = document.createElement("div");
+        divNotesWrapper.classList.add("notes-wrapper");
+
+        const divBtnsWrapper = document.createElement("div");
+        divBtnsWrapper.classList.add("control-btns-wrapper");
+
+        const pDescription = document.createElement("p");
+        pDescription.classList.add("task-description");
+        pDescription.textContent = description;
+
+        const h3NotesHeading = document.createElement("h3");
+        h3NotesHeading.classList.add("notes-heading");
+        h3NotesHeading.textContent = "Notes";
+
+        const pNotes = document.createElement("p");
+        pNotes.classList.add("task-notes");
+        pNotes.textContent = notes;
+
+        const btnEdit = document.createElement("button");
+        btnEdit.classList.add("task-edit-btn");
+        btnEdit.textContent = "Edit";
+
+        const btnDelete = document.createElement("button");
+        btnDelete.classList.add("task-delete-btn");
+        btnDelete.textContent = "Delete";
+
+        // assembling div I
+
+        divNotesWrapper.appendChild(h3NotesHeading);
+        divNotesWrapper.appendChild(pNotes);
+
+        // assembling div II
+
+        divInnerWrapper.appendChild(pDescription);
+        divInnerWrapper.appendChild(divNotesWrapper);
+
+        // assembling div III
+
+        divBtnsWrapper.appendChild(btnEdit);
+        divBtnsWrapper.appendChild(btnDelete);
+
+        // assembling div IV
+
+        divOuterWrapper.appendChild(divInnerWrapper);
+        divOuterWrapper.appendChild(divBtnsWrapper);
 
         return divOuterWrapper;
     };
