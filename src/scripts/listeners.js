@@ -1,4 +1,4 @@
-import { addNewProject } from "./projects.js";
+import { addNewProject, editProject, editExistingProject, deleteProject, deleteProjectHandler } from "./projects.js";
 import { addNewList } from "./lists.js";
 import { addNewItem, toDoItems, editExistingItem, deleteItem } from "./toDoItems.js";
 import { generateSideBarContent, generateProjectDetailsView, generateListDetailsView } from "./render.js";
@@ -8,12 +8,15 @@ function buttonsListeners() {
     const dialogList = document.getElementById("add-list-dialog");
     const dialogTask = document.getElementById("add-task-dialog");
     const dialogDeleteTask = document.getElementById("delete-task-dialog");
+    const dialogDeleteProject = document.getElementById("delete-project-dialog");
 
     document.getElementById("add-project-btn").addEventListener("click", () => {
+        document.getElementById("save-btn").value = "save";
         dialogProject.showModal();
     });
 
     document.getElementById("add-list-btn").addEventListener("click", () => {
+        document.getElementById("save-list-btn").value = "save";
         dialogList.showModal();
     });
 
@@ -22,9 +25,13 @@ function buttonsListeners() {
             alert("Please select a list first to add a task to it");
         }
         else {
+            document.getElementById("save-task-btn").value = "save";
             dialogTask.showModal();
         }
     });
+
+    document.getElementById("edit-project-btn").addEventListener("click", editProject);
+    document.getElementById("delete-project-btn").addEventListener("click", deleteProjectHandler);
 
     const formProject = document.getElementById("form-project");
     const formList = document.getElementById("form-list");
@@ -38,9 +45,17 @@ function buttonsListeners() {
 
             addNewProject(formData.get("project_title"), formData.get("project_description"));
             generateSideBarContent();
-
-            formProject.reset();
         }
+        else if (action === "save-edit") {
+            const formData = new FormData(formProject);
+            const currentProject = document.querySelector('.project-btn[data-selected="true"]');
+
+            editExistingProject(formData.get("project_title"), formData.get("project_description"), currentProject.dataset.id);
+            generateSideBarContent();
+            generateProjectDetailsView(currentProject.dataset.id);
+        }
+
+        formProject.reset();
     });
 
     dialogList.addEventListener("close", () => {
@@ -52,9 +67,9 @@ function buttonsListeners() {
 
             addNewList(formData.get("list_title"), formData.get("list_description"), currentProject.dataset.id);
             generateProjectDetailsView(currentProject.dataset.id);
-
-            formList.reset();
         }
+
+        formList.reset();
     });
 
     dialogTask.addEventListener("close", () => {
@@ -101,6 +116,27 @@ function buttonsListeners() {
             deleteItem(currentItem.dataset.id);
 
             generateListDetailsView(currentList.dataset.id);
+        }
+    });
+
+    document.getElementById("delete-project-dialog-btn").addEventListener("click", () => {
+        dialogDeleteProject.close("delete");
+    });
+
+    document.getElementById("cancel-delete-project-btn").addEventListener("click", () => {
+        dialogDeleteProject.close("cancel");
+    });
+
+    dialogDeleteProject.addEventListener("close", () => {
+        const action = dialogDeleteProject.returnValue;
+
+        if (action === "delete") {
+            const currentProject = document.querySelector('.project-btn[data-selected="true"]');
+
+            deleteProject(currentProject.dataset.id);
+
+            generateSideBarContent();
+            document.getElementById("project-content").classList.add("inactive");
         }
     });
 

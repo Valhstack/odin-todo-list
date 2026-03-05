@@ -45,12 +45,21 @@
         <div class="main" id="main">
             <div class="project-content inactive" id="project-content">
                 <div class="project-view-heading-wrapper">
-                    <h3 id="project-view-heading" class="project-view-heading">
-                        <span id="project-view-heading-text"></span>
-                    </h3>
-                    <p id="project-view-description" class="project-view-description">
-                        <span id="project-view-description-text"></span>
-                    </p>
+                    <div class="project-view-top">
+                        <h3 id="project-view-heading" class="project-view-heading">
+                            <span id="project-view-heading-text"></span>
+                        </h3>
+
+                        <div class="project-control-btns-wrapper">
+                            <button class="edit-project-btn" id="edit-project-btn">Edit</button>
+                            <button class="delete-project-btn" id="delete-project-btn">Delete</button>
+                        </div>
+                    </div>
+                    <div class="project-view-bottom">
+                        <p id="project-view-description" class="project-view-description">
+                            <span id="project-view-description-text"></span>
+                        </p>
+                    </div>
                 </div>
 
                 <div class="project-view-lists" id="project-view-lists">
@@ -142,6 +151,20 @@
                     <div class="delete-task-btns-wrapper">
                         <button value="delete" id="delete-task-btn">Delete</button>
                         <button value="cancel" id="cancel-delete-task-btn">Cancel</button>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="delete-project-dialog" class="delete-project-dialog">
+                <div class="delete-project-dialog-wrapper">
+                    <div class="delete-project-wrapper">
+                        <h3 class="delete-project-heading">Delete project?</h3>
+                        <p class="delete-project-subtext">This action cannot be undone. It will also delete all
+                            associated lists and todo items.</p>
+                    </div>
+                    <div class="delete-project-btns-wrapper">
+                        <button value="delete" id="delete-project-dialog-btn">Delete</button>
+                        <button value="cancel" id="cancel-delete-project-btn">Cancel</button>
                     </div>
                 </div>
             </dialog>

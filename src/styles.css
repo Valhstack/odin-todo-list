@@ -640,7 +640,8 @@ input[type="checkbox"]:checked::before {
     text-decoration: underline;
 }
 
-.delete-task-dialog {
+.delete-task-dialog,
+.delete-project-dialog {
     width: 420px;
     padding: 28px 32px;
     border-radius: 14px;
@@ -650,7 +651,8 @@ input[type="checkbox"]:checked::before {
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
 }
 
-.delete-task-dialog-wrapper {
+.delete-task-dialog-wrapper,
+.delete-project-dialog-wrapper {
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -659,26 +661,30 @@ input[type="checkbox"]:checked::before {
 
 }
 
-.delete-task-heading {
+.delete-task-heading,
+.delete-project-heading {
     font-size: 22px;
     color: #E6DDD6;
     text-align: center;
 }
 
-.delete-task-subtext {
+.delete-task-subtext,
+.delete-project-subtext {
     font-size: 16px;
     color: #B6A79E;
     line-height: 1.5;
     text-align: center;
 }
 
-.delete-task-btns-wrapper {
+.delete-task-btns-wrapper,
+.delete-project-btns-wrapper {
     display: flex;
     gap: 14px;
     justify-content: center;
 }
 
-#delete-task-btn {
+#delete-task-btn,
+#delete-project-dialog-btn {
     font-size: 16px;
     padding: 10px 20px;
     border: none;
@@ -688,19 +694,91 @@ input[type="checkbox"]:checked::before {
     color: #F4EDE6;
 }
 
-#delete-task-btn:hover {
+#delete-task-btn:hover,
+#delete-project-dialog-btn:hover {
     background-color: #E07474;
 }
 
-#cancel-delete-task-btn {
+#cancel-delete-task-btn,
+#cancel-delete-project-btn {
     font-size: 16px;
     background-color: transparent;
     border: none;
     color: #B6A79E;
 }
 
-#cancel-delete-task-btn:hover {
+#cancel-delete-task-btn:hover,
+#cancel-delete-project-btn:hover {
     color: #E6DDD6;
+}
+
+.project-view-top {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.project-control-btns-wrapper {
+    display: flex;
+    gap: 12px;
+}
+
+.edit-project-btn,
+.delete-project-btn {
+    background-color: transparent;
+    border: none;
+}
+
+.edit-project-btn {
+    color: #C06A42;
+}
+
+.edit-project-btn:hover {
+    color: #D1784F;
+    text-decoration: underline;
+}
+
+.delete-project-btn {
+    color: #C85F5F;
+}
+
+.delete-project-btn:hover {
+    color: #E06B6B;
+    text-decoration: underline;
+}
+
+.edit-list-btn,
+.delete-list-btn {
+    background-color: transparent;
+    border: none;
+    width: 16px;
+    height: 16px;
+}
+
+.img-edit-btn,
+.img-delete-btn {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) saturate(100%) invert(59%) sepia(8%) saturate(350%) hue-rotate(346deg) brightness(92%) contrast(90%);
+}
+
+.img-edit-btn:hover {
+    filter: brightness(0) saturate(100%) invert(46%) sepia(42%) saturate(604%) hue-rotate(339deg) brightness(92%) contrast(90%);
+}
+
+.img-delete-btn:hover {
+    filter: brightness(0) saturate(100%) invert(63%) sepia(19%) saturate(1763%) hue-rotate(315deg) brightness(92%) contrast(87%);
+}
+
+.list-btn-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.list-control-btns-wrapper {
+    display: flex;
+    gap: 10px;
 }
 
 .inactive {

@@ -35,6 +35,14 @@ const deleteItem = (itemID) => {
     }
 };
 
+const deleteAllItems = (listID) => {
+    for (let i = toDoItems.length - 1; i >= 0; i--) {
+        if (toDoItems[i].listID === listID) {
+            toDoItems.splice(i, 1);
+        }
+    }
+};
+
 function showTaskDetails(e) {
     if (e.target.closest(".task-checkbox")) return;
 
@@ -84,4 +92,4 @@ function deleteTask(e) {
     document.getElementById("delete-task-dialog").showModal();
 }
 
-export { toDoItems, addNewItem, showTaskDetails, editTask, editExistingItem, deleteItem, deleteTask };
+export { toDoItems, addNewItem, showTaskDetails, editTask, editExistingItem, deleteItem, deleteTask, deleteAllItems };

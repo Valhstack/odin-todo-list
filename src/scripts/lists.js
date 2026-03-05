@@ -1,5 +1,6 @@
 import { projects } from "./projects.js";
 import { generateListDetailsView } from "./render.js";
+import { deleteAllItems } from "./toDoItems.js";
 
 const lists = [];
 
@@ -24,12 +25,22 @@ function showListDetails(e) {
 
     if (selectedBtn && selectedBtn !== currentBtn) {
         selectedBtn.removeAttribute("data-selected");
+        selectedBtn.querySelector(".list-control-btns-wrapper").classList.add("inactive");
     }
-
-    document.getElementById("list-description-text").textContent = lists.find(obj => obj.ID === listID).description;
 
     currentBtn.dataset.selected = "true";
     generateListDetailsView(listID);
 }
 
-export { lists, addNewList, showListDetails };
+const deleteAllLists = (projectID) => {
+    for (let i = lists.length - 1; i >= 0; i--) {
+        if (lists[i].projectID === projectID) {
+
+            deleteAllItems(lists[i].ID); // delete items first
+            lists.splice(i, 1);          // then delete the list
+
+        }
+    }
+};
+
+export { lists, addNewList, showListDetails, deleteAllLists };

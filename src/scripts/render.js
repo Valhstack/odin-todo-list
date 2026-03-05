@@ -1,8 +1,10 @@
-import { projects, showProjectDetails } from "./projects.js";
+import { projects, showProjectDetails, editProject } from "./projects.js";
 import { lists, showListDetails } from "./lists.js";
 import { attachListeners } from "./listeners.js"
 import { toDoItems, showTaskDetails, editTask, deleteTask } from "./toDoItems.js";
 import { formatDate } from "./formatDate.js";
+import deleteImg from "../images/delete.svg";
+import editImg from "../images/edit.svg";
 
 const generateContent = (function () {
     const renderProjects = () => {
@@ -41,6 +43,59 @@ const generateContent = (function () {
         return divElWrapper;
     };
 
+    const createBtnsImageContainer = (name, imgEditUrl, imgDeleteUrl, listID) => {
+        /* 
+            div wrapper divOuterWrapper class="list-btn-wrapper" -> II
+                button class="list-btn"
+                div wrapper divControlBtnsWrapper class="list-control-btns-wrapper" -> I
+                    button img edit
+                    button img delete
+        */
+
+        const divOuterWrapper = document.createElement("div");
+        divOuterWrapper.classList.add("list-btn-wrapper");
+
+        const divControlBtnsWrapper = document.createElement("div");
+        divControlBtnsWrapper.classList.add("list-control-btns-wrapper");
+        divControlBtnsWrapper.classList.add("inactive");
+
+        const btnMain = document.createElement("button");
+        btnMain.classList.add("list-btn");
+        btnMain.dataset.id = listID;
+        btnMain.textContent = name;
+
+        const btnEdit = document.createElement("button");
+        btnEdit.classList.add("edit-list-btn");
+        btnEdit.dataset.id = listID;
+
+        const btnDelete = document.createElement("button");
+        btnDelete.classList.add("delete-list-btn");
+        btnDelete.dataset.id = listID;
+
+        const imgEdit = document.createElement("img");
+        imgEdit.classList.add("img-edit-btn");
+        imgEdit.src = imgEditUrl;
+
+        const imgDelete = document.createElement("img");
+        imgDelete.classList.add("img-delete-btn");
+        imgDelete.src = imgDeleteUrl;
+
+        // assembling div I
+
+        btnEdit.appendChild(imgEdit);
+        btnDelete.appendChild(imgDelete);
+
+        divControlBtnsWrapper.appendChild(btnEdit);
+        divControlBtnsWrapper.appendChild(btnDelete);
+
+        // assemble div II
+
+        divOuterWrapper.appendChild(btnMain);
+        divOuterWrapper.appendChild(divControlBtnsWrapper);
+
+        return divOuterWrapper;
+    };
+
     const reset = (elemID, className) => {
         const elems = document.getElementById(elemID).querySelectorAll(className);
 
@@ -67,7 +122,7 @@ const generateContent = (function () {
 
         for (let list of lists) {
             if (list.projectID === projectID) {
-                projectViewLists.insertBefore(createBtnContainer(list.title, list.ID, "list-btn-wrapper", "list-btn"), newList);
+                projectViewLists.insertBefore(createBtnsImageContainer(list.title, editImg, deleteImg, list.ID), newList);
             }
         }
 
@@ -78,10 +133,10 @@ const generateContent = (function () {
     const renderItems = (listID) => {
         reset("list-view-tasks", ".todo-item-wrapper");
 
+        createListInformation(listID);
+
         const newTask = document.getElementById("add-item-btn-wrapper");
         const listViewTasks = document.getElementById("list-view-tasks");
-
-        //let list = lists.find(obj => obj.ID === listID);
 
         for (let item of toDoItems) {
             if (item.listID === listID) {
@@ -97,6 +152,13 @@ const generateContent = (function () {
 
         const deleteBtns = document.getElementsByClassName("task-delete-btn");
         attachListeners(deleteBtns, deleteTask);
+    };
+
+    const createListInformation = (listID) => {
+        const currentList = document.querySelector('.list-btn[data-selected="true"]');
+        currentList.nextElementSibling.classList.remove("inactive");
+
+        document.getElementById("list-description-text").textContent = lists.find(obj => obj.ID === listID).description;
     };
 
     const createTaskContainer = (title, description, dueDate, priority, notes, ID) => {
