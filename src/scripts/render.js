@@ -104,9 +104,13 @@ const generateContent = (function () {
 
     const renderLists = (projectID) => {
         // list-btn-wrapper and list-btn
-        reset("list-btns-wrapper", ".list-btn-wrapper");
+        reset("list-btns-wrapper", ".list-btns-inner-wrapper");
+        reset("list-view-tasks", ".todo-item-wrapper");
+        document.getElementById("list-description-text").textContent = "";
 
         const projectViewLists = document.getElementById("list-btns-wrapper");
+        const divInnerWrapper = document.createElement("div");
+        divInnerWrapper.classList.add("list-btns-inner-wrapper");
 
         document.getElementById("project-content").classList.remove("inactive");
 
@@ -122,8 +126,12 @@ const generateContent = (function () {
 
         for (let list of lists) {
             if (list.projectID === projectID) {
-                projectViewLists.insertBefore(createBtnsImageContainer(list.title, editImg, deleteImg, list.ID), newList);
+                divInnerWrapper.appendChild(createBtnsImageContainer(list.title, editImg, deleteImg, list.ID));
             }
+        }
+
+        if (divInnerWrapper.children.length !== 0) {
+            projectViewLists.insertBefore(divInnerWrapper, newList);
         }
 
         const listBtns = document.getElementsByClassName("list-btn");

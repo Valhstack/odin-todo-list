@@ -41,8 +41,6 @@ main {
     display: flex;
     flex-direction: column;
 
-    gap: 28px;
-
     height: 100%;
     width: 100%;
 }
@@ -85,13 +83,14 @@ nav {
     width: calc(100% / 3);
     height: 100%;
 
-    padding: 24px 12px;
+    padding: 24px 18px;
 
     background-color: #332C28;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
 
     gap: 10px;
 }
@@ -307,9 +306,10 @@ textarea:focus {
 }
 
 .project-view-lists {
+    max-width: 960px;
     display: flex;
     gap: 25px;
-    padding: 24px 32px;
+    padding: 0 32px;
 
     justify-content: space-between;
 
@@ -321,9 +321,18 @@ textarea:focus {
 
 .list-btns-wrapper {
     display: flex;
-    gap: 20px;
-
     justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+
+.list-btns-inner-wrapper {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 32px 12px;
 }
 
 .project-view-heading {
@@ -364,6 +373,7 @@ textarea:focus {
     padding: 14px 18px;
     border-radius: 10px;
     border: 1px dashed rgba(255, 255, 255, 0.08);
+    min-width: 160px;
 }
 
 .add-list-btn:hover,
@@ -385,10 +395,12 @@ textarea:focus {
 }
 
 .list-view-tasks {
-    padding: 0 32px;
+    padding: 32px;
 
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    overflow-x: auto;
 
     gap: 24px;
 }
