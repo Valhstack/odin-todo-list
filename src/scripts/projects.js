@@ -36,6 +36,8 @@ function showProjectDetails(e) {
 
     currentBtn.dataset.selected = "true";
 
+    if (window.innerWidth <= 430) document.getElementById("sidebar").classList.toggle("open");
+
     const projectID = e.currentTarget.dataset.id;
     generateProjectDetailsView(projectID);
 }

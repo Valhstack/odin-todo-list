@@ -1,3 +1,64 @@
+:root {
+    --bg-main: #2C2724;
+    --bg-sidebar: #332C28;
+    --bg-surface: #4B403A;
+    --bg-dialog: #3c322d;
+
+    --text-primary: #E6DDD6;
+    --text-secondary: #B6A79E;
+    --text-muted: #A99E95;
+    --text-dim: #9A8F86;
+
+    --accent: #C06A42;
+    --accent-hover: #D1784F;
+
+    --danger: #D46A6A;
+    --danger-hover: #E07474;
+
+    --hover-light: rgba(255, 255, 255, 0.03);
+    --hover-strong: rgba(255, 255, 255, 0.04);
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --border-divider: rgba(255, 255, 255, 0.05);
+
+    --shadow-soft: 0 10px 18px -14px rgba(0, 0, 0, 0.4);
+    --shadow-main: 0 18px 48px rgba(0, 0, 0, 0.45);
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 14px;
+    --radius-xxl: 16px;
+
+    --form-background: #332C28;
+    --form-control-color: #C06A42;
+
+    --nav-grad-1: #3B322E;
+    --nav-grad-2: #372F2B;
+    --nav-grad-3: #322A26;
+}
+
+body.dark-theme {
+    --bg-main: #0f0f10;
+    --bg-sidebar: #151516;
+    --bg-surface: #1b1b1d;
+    --bg-dialog: #222224;
+
+    --text-primary: #f5f5f5;
+    --text-secondary: #d6d6d6;
+    --text-muted: #bfbfbf;
+    --text-dim: #a6a6a6;
+
+    --hover-light: rgba(255, 255, 255, 0.06);
+    --hover-strong: rgba(255, 255, 255, 0.10);
+
+    --border-soft: rgba(255, 255, 255, 0.12);
+    --border-divider: rgba(255, 255, 255, 0.08);
+
+    --nav-grad-1: #111112;
+    --nav-grad-2: #141416;
+    --nav-grad-3: #18181a;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -15,7 +76,7 @@ p {
 }
 
 body {
-    background-color: #2C2724;
+    background-color: var(--bg-main);
     height: 100vh;
 
     font-family: "Fraunces";
@@ -46,7 +107,7 @@ main {
 }
 
 nav {
-    background-image: linear-gradient(to right, #3B322E, #372F2B, #322A26);
+    background-image: linear-gradient(to right, var(--nav-grad-1), var(--nav-grad-2), var(--nav-grad-3));
     height: 64px;
 
     padding: 0 32px;
@@ -54,13 +115,33 @@ nav {
     display: flex;
     align-items: center;
 
-    box-shadow: 0 10px 18px -14px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-soft);
 }
 
 .navbar {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 
+.navbar-left,
+.navbar-logo-wrapper {
+    display: flex;
     gap: 8px;
+}
+
+.theme-toggle-btn,
+.burger-menu-btn {
+    width: 30px;
+    height: 30px;
+
+    background-color: transparent;
+    border: none;
+}
+
+#theme-toggle-img,
+#burger-menu-img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
 .navbar-logo {
@@ -85,7 +166,7 @@ nav {
 
     padding: 24px 18px;
 
-    background-color: #332C28;
+    background-color: var(--bg-sidebar);
 
     display: flex;
     flex-direction: column;
@@ -120,31 +201,31 @@ nav {
 }
 
 .project-btn:hover {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: var(--hover-light);
 }
 
 .project-btn[data-selected="true"] {
-    background-color: rgba(255, 255, 255, 0.04);
-    border-left: 3px solid #C06A42;
+    background-color: var(--hover-strong);
+    border-left: 3px solid var(--accent);
     border-radius: 2px;
 }
 
 #add-project-btn {
     color: #C1B2A8;
-    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border: 1px dashed var(--border-soft);
 }
 
 #add-project-btn:hover {
-    background-color: rgba(255, 255, 255, 0.03);
-    color: #C06A42;
+    background-color: var(--hover-light);
+    color: var(--accent);
     opacity: 0.85;
-    border-color: #C06A42;
+    border-color: var(--accent);
 }
 
 .add-project-dialog-heading,
 .add-list-dialog-heading {
     font-size: 20px;
-    color: #E6DDD6;
+    color: var(--text-primary);
     margin-bottom: 18px;
 }
 
@@ -153,7 +234,7 @@ nav {
     width: 420px;
     max-width: 90vw;
 
-    background-color: #4B403A;
+    background-color: var(--bg-surface);
 
     border-radius: 12px;
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.45);
@@ -169,7 +250,7 @@ nav {
     padding: 36px 42px;
     border-radius: 14px;
 
-    background: #4B403A;
+    background: var(--bg-surface);
 
     box-shadow:
         0 18px 50px rgba(0, 0, 0, 0.45);
@@ -204,8 +285,8 @@ nav {
 .add-list-dialog input[type="text"],
 .add-task-dialog input[type="text"],
 textarea {
-    background-color: #332C28;
-    color: #E6DDD6;
+    background-color: var(--bg-sidebar);
+    color: var(--text-primary);
     border-radius: 8px;
     padding: 10px 12px;
     border: 1px solid rgba(255, 255, 255, 0.10);
@@ -233,7 +314,7 @@ textarea {
 textarea:focus {
     outline: none;
 
-    border: 1px solid #C06A42;
+    border: 1px solid var(--accent);
     box-shadow: 0 0 0 2px rgba(192, 106, 66, 0.25);
 }
 
@@ -280,13 +361,13 @@ textarea:focus {
 #cancel-btn:hover,
 #cancel-list-btn:hover,
 #cancel-task-btn:hover {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: var(--hover-strong);
 }
 
 #save-btn,
 #save-list-btn,
 #save-task-btn {
-    background-color: #C06A42;
+    background-color: var(--accent);
     color: #EADFD7;
     padding: 8px 16px;
     border-radius: 8px;
@@ -337,15 +418,15 @@ textarea:focus {
 
 .project-view-heading {
     font-size: 28px;
-    color: #E6DDD6;
+    color: var(--text-primary);
 }
 
 .project-view-description {
     font-size: 15px;
-    color: #B6A79E;
+    color: var(--text-secondary);
     margin-top: 6px;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--hover-strong);
     padding-bottom: 14px;
 }
 
@@ -354,7 +435,7 @@ textarea:focus {
     background-color: transparent;
     border: none;
     font-size: 16px;
-    color: #E6DDD6;
+    color: var(--text-primary);
 }
 
 .list-btn {
@@ -364,33 +445,33 @@ textarea:focus {
 }
 
 .list-btn:hover {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: var(--hover-light);
 }
 
 .add-list-btn {
     font-size: 14px;
-    color: #B6A79E;
+    color: var(--text-secondary);
     padding: 14px 18px;
     border-radius: 10px;
-    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border: 1px dashed var(--border-soft);
     min-width: 160px;
 }
 
 .add-list-btn:hover,
 .add-item-btn:hover {
-    background: rgba(255, 255, 255, 0.03);
-    color: #C06A42;
-    border-color: #C06A42;
+    background: var(--hover-light);
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 .list-btn[data-selected="true"] {
     background: #403631;
-    outline: 1px solid #C06A42;
+    outline: 1px solid var(--accent);
 }
 
 .list-description {
     font-size: 17px;
-    color: #A99E95;
+    color: var(--text-muted);
     line-height: 1.5;
 }
 
@@ -407,9 +488,9 @@ textarea:focus {
 
 .add-item-btn {
     font-size: 14px;
-    color: #B6A79E;
+    color: var(--text-secondary);
     background-color: transparent;
-    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border: 1px dashed var(--border-soft);
     padding: 8px 10px;
     border-radius: 6px;
 }
@@ -417,11 +498,11 @@ textarea:focus {
 .list-view-heading {
     font-size: 20px;
     text-transform: uppercase;
-    color: #9A8F86;
+    color: var(--text-dim);
 
     padding-bottom: 12px;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border-divider);
 }
 
 .todo-item-wrapper {
@@ -481,10 +562,10 @@ input[type="checkbox"] {
     margin: 0;
 
     font: inherit;
-    color: #C06A42;
+    color: var(--accent);
     width: 1.15em;
     height: 1.15em;
-    border: 0.15em solid #C06A42;
+    border: 0.15em solid var(--accent);
     border-radius: 0.15em;
     transform: translateY(-0.075em);
 
@@ -502,7 +583,7 @@ input[type="checkbox"]::before {
     transition: 120ms transform ease-in-out;
     box-shadow: inset 1em 1em var(--form-control-color);
     /* Windows High Contrast Mode */
-    background-color: #C06A42;
+    background-color: var(--accent);
 }
 
 input[type="checkbox"]:checked::before {
@@ -521,7 +602,7 @@ input[type="checkbox"]:checked::before {
 
 .checkbox-wrapper label {
     font-size: 17px;
-    color: #E6DDD6;
+    color: var(--text-primary);
     flex-grow: 1;
 }
 
@@ -534,7 +615,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .due-date {
-    color: #A99E95;
+    color: var(--text-muted);
     font-size: 15px;
 }
 
@@ -558,7 +639,7 @@ input[type="checkbox"]:checked::before {
 
 .add-task-dialog-heading {
     font-size: 26px;
-    color: #E6DDD6;
+    color: var(--text-primary);
 
     text-align: center;
 }
@@ -568,7 +649,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 8px;
 
     background: rgba(0, 0, 0, 0.28);
-    color: #E6DDD6;
+    color: var(--text-primary);
 
     border: none;
     padding: 0 12px;
@@ -579,7 +660,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 8px;
 
     background: rgba(0, 0, 0, 0.28);
-    color: #E6DDD6;
+    color: var(--text-primary);
 
     border: none;
     padding: 0 12px;
@@ -605,12 +686,12 @@ input[type="checkbox"]:checked::before {
 
 .task-description {
     font-size: 17px;
-    color: #B6A79E;
+    color: var(--text-secondary);
     line-height: 1.5;
 }
 
 .notes-heading {
-    color: #9A8F86;
+    color: var(--text-dim);
     font-size: 15px;
     font-weight: 600;
     text-decoration: underline;
@@ -618,7 +699,7 @@ input[type="checkbox"]:checked::before {
 
 .task-notes {
     font-size: 16px;
-    color: #A99E95;
+    color: var(--text-muted);
     line-height: 1.5;
 }
 
@@ -635,16 +716,16 @@ input[type="checkbox"]:checked::before {
 }
 
 .task-edit-btn {
-    color: #C06A42;
+    color: var(--accent);
 }
 
 .task-edit-btn:hover {
-    color: #D1784F;
+    color: var(--accent-hover);
     text-decoration: underline;
 }
 
 .task-delete-btn {
-    color: #D46A6A;
+    color: var(--danger);
 }
 
 .task-delete-btn:hover {
@@ -660,16 +741,16 @@ input[type="checkbox"]:checked::before {
     border-radius: 14px;
     border: none;
 
-    background-color: #3c322d;
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+    background-color: var(--bg-dialog);
+    box-shadow: var(--shadow-main);
 }
 
 .no-list-dialog {
     width: 380px;
     padding: 26px 30px;
     border-radius: 14px;
-    background-color: #3c322d;
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+    background-color: var(--bg-dialog);
+    box-shadow: var(--shadow-main);
     border: none;
 }
 
@@ -689,7 +770,7 @@ input[type="checkbox"]:checked::before {
 .delete-list-heading,
 .no-list-heading {
     font-size: 22px;
-    color: #E6DDD6;
+    color: var(--text-primary);
     text-align: center;
 }
 
@@ -698,7 +779,7 @@ input[type="checkbox"]:checked::before {
 .delete-list-subtext,
 .no-list-subtext {
     font-size: 16px;
-    color: #B6A79E;
+    color: var(--text-secondary);
     line-height: 1.5;
     text-align: center;
 }
@@ -720,7 +801,7 @@ input[type="checkbox"]:checked::before {
     border: none;
     border-radius: 10px;
 
-    background-color: #D46A6A;
+    background-color: var(--danger);
     color: #F4EDE6;
 }
 
@@ -729,19 +810,19 @@ input[type="checkbox"]:checked::before {
     padding: 8px 18px;
     border-radius: 10px;
 
-    background-color: #C06A42;
+    background-color: var(--accent);
     color: #F4EDE6;
     border: none;
 }
 
 #no-list-dialog-btn:hover {
-    background-color: #D1784F;
+    background-color: var(--accent-hover);
 }
 
 #delete-task-btn:hover,
 #delete-project-dialog-btn:hover,
 #delete-list-dialog-btn:hover {
-    background-color: #E07474;
+    background-color: var(--danger-hover);
 }
 
 #cancel-delete-task-btn,
@@ -750,13 +831,13 @@ input[type="checkbox"]:checked::before {
     font-size: 16px;
     background-color: transparent;
     border: none;
-    color: #B6A79E;
+    color: var(--text-secondary);
 }
 
 #cancel-delete-task-btn:hover,
 #cancel-delete-project-btn:hover,
 #cancel-delete-list-btn:hover {
-    color: #E6DDD6;
+    color: var(--text-primary);
 }
 
 .project-view-top {
@@ -777,11 +858,11 @@ input[type="checkbox"]:checked::before {
 }
 
 .edit-project-btn {
-    color: #C06A42;
+    color: var(--accent);
 }
 
 .edit-project-btn:hover {
-    color: #D1784F;
+    color: var(--accent-hover);
     text-decoration: underline;
 }
 
@@ -830,4 +911,86 @@ input[type="checkbox"]:checked::before {
 
 .inactive {
     display: none;
+}
+
+@media (max-width: 430px) {
+    main {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    nav {
+        padding: 0 16px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 64px;
+        left: -260px;
+        width: 240px;
+        height: calc(100vh - 64px);
+        z-index: 100;
+        transition: left 0.25s ease;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .project-view-heading-wrapper {
+        padding: 20px 16px 10px 16px;
+    }
+
+    .project-view-lists {
+        padding: 0 16px;
+        gap: 16px;
+    }
+
+    .list-btns-inner-wrapper {
+        padding: 20px 8px;
+        gap: 12px;
+    }
+
+    .list-view-tasks {
+        padding: 20px 16px;
+        gap: 16px;
+    }
+
+    .todo-item-wrapper {
+        gap: 12px;
+    }
+
+    .item-closed-wrapper {
+        grid-template-columns: 1.15em auto auto;
+        gap: 12px;
+    }
+
+    .checkbox-wrapper {
+        grid-column: 1 / 3;
+    }
+
+    .metadata-wrapper {
+        grid-column: 2 / 4 !important;
+        grid-row: 2 / 3;
+        justify-self: start;
+        grid-template-columns: auto auto;
+        gap: 12px;
+    }
+
+    .task-details-outer-wrapper {
+        grid-column: 2 / 3;
+    }
+
+    .add-task-dialog,
+    .add-project-dialog,
+    .add-list-dialog {
+        width: 92vw;
+        padding: 24px;
+    }
+
+    .list-btns-wrapper {
+        justify-content: flex-start;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
 }

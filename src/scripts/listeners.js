@@ -12,6 +12,21 @@ function buttonsListeners() {
     const dialogDeleteList = document.getElementById("delete-list-dialog");
     const dialogNoList = document.getElementById("no-list-dialog");
 
+    document.getElementById("theme-toggle-btn").addEventListener("click", () => {
+        const isDark = document.body.classList.toggle("dark-theme");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    document.getElementById("burger-menu-btn").addEventListener("click", () => {
+        document.getElementById("sidebar").classList.toggle("open");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!document.getElementById("sidebar").contains(e.target) && !document.getElementById("burger-menu-btn").contains(e.target)) {
+            document.getElementById("sidebar").classList.remove("open");
+        }
+    });
+
     document.getElementById("add-project-btn").addEventListener("click", () => {
         document.getElementById("save-btn").value = "save";
         dialogProject.showModal();
