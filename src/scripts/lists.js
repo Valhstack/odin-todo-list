@@ -1,8 +1,8 @@
-import { projects } from "./projects.js";
 import { generateListDetailsView } from "./render.js";
 import { deleteAllItems } from "./toDoItems.js";
+import { projects } from "./projects.js";
 
-const lists = [];
+let lists = localStorage.getItem('lists') ? JSON.parse(localStorage.getItem('lists')) : [];
 
 class List {
     constructor(title, description, projectID) {
@@ -15,6 +15,7 @@ class List {
 
 const addNewList = (title, description, projectID) => {
     lists.push(new List(title, description, projectID));
+    localStorage.setItem('lists', JSON.stringify(lists));
 }
 
 function showListDetails(e) {
@@ -47,19 +48,27 @@ function editListHandler(e) {
 }
 
 const editList = (title, description, listID) => {
+    lists = JSON.parse(localStorage.getItem("lists")) || [];
+
     const list = lists.find(obj => obj.ID === listID);
 
     list.title = title;
     list.description = description;
+
+    localStorage.setItem('lists', JSON.stringify(lists));
 };
 
 const deleteAllLists = (projectID) => {
+    lists = JSON.parse(localStorage.getItem("lists")) || [];
+
     for (let i = lists.length - 1; i >= 0; i--) {
         if (lists[i].projectID === projectID) {
             deleteAllItems(lists[i].ID); // delete items first
             lists.splice(i, 1);          // then delete the list
         }
     }
+
+    localStorage.setItem('lists', JSON.stringify(lists));
 };
 
 function deleteListHandler(e) {
@@ -68,6 +77,8 @@ function deleteListHandler(e) {
 }
 
 const deleteList = (listID) => {
+    lists = JSON.parse(localStorage.getItem("lists")) || [];
+
     deleteAllItems(listID);
 
     const index = lists.findIndex(list => list.ID === listID);
@@ -75,6 +86,8 @@ const deleteList = (listID) => {
     if (index !== -1) {
         lists.splice(index, 1);
     }
+
+    localStorage.setItem('lists', JSON.stringify(lists));
 }
 
 export { lists, addNewList, showListDetails, deleteAllLists, editListHandler, editList, deleteListHandler, deleteList };

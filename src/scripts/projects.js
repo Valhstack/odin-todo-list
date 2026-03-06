@@ -1,7 +1,7 @@
 import { generateProjectDetailsView } from "./render.js"
-import { deleteAllLists } from "./lists.js";
+import { lists, deleteAllLists, addNewList } from "./lists.js";
 
-const projects = [];
+let projects = localStorage.getItem('projects') ? JSON.parse(localStorage.getItem('projects')) : [];
 
 class Project {
     constructor(title, description) {
@@ -13,6 +13,17 @@ class Project {
 
 const addNewProject = (title, description) => {
     projects.push(new Project(title, description));
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+if (projects.length === 0) {
+    addNewProject("Default", "This is a default project.");
+
+    if (lists.length === 0) {
+        const defaultProject = projects.find(obj => obj.title === "Default");
+
+        addNewList("Default", "This is a default list connected to Default project.", defaultProject.ID);
+    }
 }
 
 function showProjectDetails(e) {
@@ -44,10 +55,14 @@ function editProject(e) {
 }
 
 const editExistingProject = (title, description, projectID) => {
+    projects = JSON.parse(localStorage.getItem("projects")) || [];
+
     const project = projects.find(obj => obj.ID === projectID);
 
     project.title = title;
     project.description = description;
+
+    localStorage.setItem('projects', JSON.stringify(projects));
 };
 
 function deleteProjectHandler(e) {
@@ -56,6 +71,8 @@ function deleteProjectHandler(e) {
 }
 
 const deleteProject = (projectID) => {
+    projects = JSON.parse(localStorage.getItem("projects")) || [];
+
     deleteAllLists(projectID);
 
     const index = projects.findIndex(project => project.ID === projectID);
@@ -63,6 +80,8 @@ const deleteProject = (projectID) => {
     if (index !== -1) {
         projects.splice(index, 1);
     }
+
+    localStorage.setItem('projects', JSON.stringify(projects));
 };
 
 export { projects, addNewProject, showProjectDetails, editProject, editExistingProject, deleteProjectHandler, deleteProject };
