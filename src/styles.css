@@ -641,7 +641,8 @@ input[type="checkbox"]:checked::before {
 }
 
 .delete-task-dialog,
-.delete-project-dialog {
+.delete-project-dialog,
+.delete-list-dialog {
     width: 420px;
     padding: 28px 32px;
     border-radius: 14px;
@@ -651,25 +652,39 @@ input[type="checkbox"]:checked::before {
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
 }
 
+.no-list-dialog {
+    width: 380px;
+    padding: 26px 30px;
+    border-radius: 14px;
+    background-color: #3c322d;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+    border: none;
+}
+
 .delete-task-dialog-wrapper,
-.delete-project-dialog-wrapper {
+.delete-project-dialog-wrapper,
+.delete-list-dialog-wrapper,
+.no-list-dialog-wrapper {
     display: flex;
     flex-direction: column;
     gap: 14px;
     align-items: center;
     justify-content: center;
-
 }
 
 .delete-task-heading,
-.delete-project-heading {
+.delete-project-heading,
+.delete-list-heading,
+.no-list-heading {
     font-size: 22px;
     color: #E6DDD6;
     text-align: center;
 }
 
 .delete-task-subtext,
-.delete-project-subtext {
+.delete-project-subtext,
+.delete-list-subtext,
+.no-list-subtext {
     font-size: 16px;
     color: #B6A79E;
     line-height: 1.5;
@@ -677,14 +692,17 @@ input[type="checkbox"]:checked::before {
 }
 
 .delete-task-btns-wrapper,
-.delete-project-btns-wrapper {
+.delete-project-btns-wrapper,
+.delete-list-btns-wrapper,
+.no-list-btns-wrapper {
     display: flex;
     gap: 14px;
     justify-content: center;
 }
 
 #delete-task-btn,
-#delete-project-dialog-btn {
+#delete-project-dialog-btn,
+#delete-list-dialog-btn {
     font-size: 16px;
     padding: 10px 20px;
     border: none;
@@ -694,13 +712,29 @@ input[type="checkbox"]:checked::before {
     color: #F4EDE6;
 }
 
+#no-list-dialog-btn {
+    font-size: 16px;
+    padding: 8px 18px;
+    border-radius: 10px;
+
+    background-color: #C06A42;
+    color: #F4EDE6;
+    border: none;
+}
+
+#no-list-dialog-btn:hover {
+    background-color: #D1784F;
+}
+
 #delete-task-btn:hover,
-#delete-project-dialog-btn:hover {
+#delete-project-dialog-btn:hover,
+#delete-list-dialog-btn:hover {
     background-color: #E07474;
 }
 
 #cancel-delete-task-btn,
-#cancel-delete-project-btn {
+#cancel-delete-project-btn,
+#cancel-delete-list-btn {
     font-size: 16px;
     background-color: transparent;
     border: none;
@@ -708,7 +742,8 @@ input[type="checkbox"]:checked::before {
 }
 
 #cancel-delete-task-btn:hover,
-#cancel-delete-project-btn:hover {
+#cancel-delete-project-btn:hover,
+#cancel-delete-list-btn:hover {
     color: #E6DDD6;
 }
 

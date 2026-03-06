@@ -168,6 +168,33 @@
                     </div>
                 </div>
             </dialog>
+
+            <dialog id="delete-list-dialog" class="delete-list-dialog">
+                <div class="delete-list-dialog-wrapper">
+                    <div class="delete-list-wrapper">
+                        <h3 class="delete-list-heading">Delete list?</h3>
+                        <p class="delete-list-subtext">This action cannot be undone. It will also delete all
+                            associated todo items.</p>
+                    </div>
+                    <div class="delete-list-btns-wrapper">
+                        <button value="delete" id="delete-list-dialog-btn">Delete</button>
+                        <button value="cancel" id="cancel-delete-list-btn">Cancel</button>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="no-list-dialog" class="no-list-dialog">
+                <div class="no-list-dialog-wrapper">
+                    <div class="no-list-wrapper">
+                        <h3 class="no-list-heading">No list selected</h3>
+                        <p class="no-list-subtext">Please select a list before adding a task.</p>
+                    </div>
+                    <div class="no-list-btns-wrapper">
+                        <button value="ok" id="no-list-dialog-btn">OK</button>
+                    </div>
+                </div>
+            </dialog>
+
         </div>
     </main>
 </body>

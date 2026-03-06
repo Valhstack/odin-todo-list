@@ -1,7 +1,7 @@
 import { addNewProject, editProject, editExistingProject, deleteProject, deleteProjectHandler } from "./projects.js";
-import { addNewList } from "./lists.js";
+import { addNewList, editList, deleteList } from "./lists.js";
 import { addNewItem, toDoItems, editExistingItem, deleteItem } from "./toDoItems.js";
-import { generateSideBarContent, generateProjectDetailsView, generateListDetailsView } from "./render.js";
+import { generateSideBarContent, generateProjectDetailsView, generateListDetailsView, reset } from "./render.js";
 
 function buttonsListeners() {
     const dialogProject = document.getElementById("add-project-dialog");
@@ -9,6 +9,8 @@ function buttonsListeners() {
     const dialogTask = document.getElementById("add-task-dialog");
     const dialogDeleteTask = document.getElementById("delete-task-dialog");
     const dialogDeleteProject = document.getElementById("delete-project-dialog");
+    const dialogDeleteList = document.getElementById("delete-list-dialog");
+    const dialogNoList = document.getElementById("no-list-dialog");
 
     document.getElementById("add-project-btn").addEventListener("click", () => {
         document.getElementById("save-btn").value = "save";
@@ -22,12 +24,16 @@ function buttonsListeners() {
 
     document.getElementById("add-item-btn").addEventListener("click", () => {
         if (!document.querySelector('.list-btn[data-selected="true"]')) {
-            alert("Please select a list first to add a task to it");
+            dialogNoList.showModal();
         }
         else {
             document.getElementById("save-task-btn").value = "save";
             dialogTask.showModal();
         }
+    });
+
+    document.getElementById("no-list-dialog-btn").addEventListener("click", () => {
+        dialogNoList.close("ok");
     });
 
     document.getElementById("edit-project-btn").addEventListener("click", editProject);
@@ -53,6 +59,8 @@ function buttonsListeners() {
             editExistingProject(formData.get("project_title"), formData.get("project_description"), currentProject.dataset.id);
             generateSideBarContent();
             generateProjectDetailsView(currentProject.dataset.id);
+            const updatedProject = document.querySelector(`.project-btn[data-id="${currentProject.dataset.id}"]`);
+            updatedProject.dataset.selected = "true";
         }
 
         formProject.reset();
@@ -60,13 +68,22 @@ function buttonsListeners() {
 
     dialogList.addEventListener("close", () => {
         const action = dialogList.returnValue;
+        const currentProject = document.querySelector('.project-btn[data-selected="true"]');
 
         if (action === "save") {
             const formData = new FormData(formList);
-            const currentProject = document.querySelector('.project-btn[data-selected="true"]');
 
             addNewList(formData.get("list_title"), formData.get("list_description"), currentProject.dataset.id);
             generateProjectDetailsView(currentProject.dataset.id);
+        }
+        else if (action === "save-edit") {
+            const formData = new FormData(formList);
+            const currentList = document.querySelector('.list-btn[data-selected="true"]');
+
+            editList(formData.get("list_title"), formData.get("list_description"), currentList.dataset.id);
+            generateProjectDetailsView(currentProject.dataset.id);
+            const updatedList = document.querySelector(`.list-btn[data-id="${currentList.dataset.id}"]`);
+            updatedList.dataset.selected = "true";
         }
 
         formList.reset();
@@ -137,6 +154,27 @@ function buttonsListeners() {
 
             generateSideBarContent();
             document.getElementById("project-content").classList.add("inactive");
+        }
+    });
+
+    document.getElementById("delete-list-dialog-btn").addEventListener("click", () => {
+        dialogDeleteList.close("delete");
+    });
+
+    document.getElementById("cancel-delete-list-btn").addEventListener("click", () => {
+        dialogDeleteList.close("cancel");
+    });
+
+    dialogDeleteList.addEventListener("close", () => {
+        const action = dialogDeleteList.returnValue;
+
+        if (action === "delete") {
+            const currentList = document.querySelector('.list-btn[data-selected="true"]');
+            const currentProject = document.querySelector('.project-btn[data-selected="true"]');
+
+            deleteList(currentList.dataset.id);
+            generateProjectDetailsView(currentProject.dataset.id);
+            reset("list-view-tasks", ".todo-item-wrapper");
         }
     });
 

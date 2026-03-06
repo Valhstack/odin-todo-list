@@ -1,5 +1,5 @@
-import { projects, showProjectDetails, editProject } from "./projects.js";
-import { lists, showListDetails } from "./lists.js";
+import { projects, showProjectDetails } from "./projects.js";
+import { lists, showListDetails, editListHandler, deleteListHandler } from "./lists.js";
 import { attachListeners } from "./listeners.js"
 import { toDoItems, showTaskDetails, editTask, deleteTask } from "./toDoItems.js";
 import { formatDate } from "./formatDate.js";
@@ -128,6 +128,12 @@ const generateContent = (function () {
 
         const listBtns = document.getElementsByClassName("list-btn");
         attachListeners(listBtns, showListDetails);
+
+        const editListBtns = document.getElementsByClassName("edit-list-btn");
+        attachListeners(editListBtns, editListHandler);
+
+        const deleteListBtns = document.getElementsByClassName("delete-list-btn");
+        attachListeners(deleteListBtns, deleteListHandler);
     };
 
     const renderItems = (listID) => {
@@ -316,11 +322,12 @@ const generateContent = (function () {
         return divOuterWrapper;
     };
 
-    return { renderProjects, renderLists, renderItems };
+    return { renderProjects, renderLists, renderItems, reset };
 })();
 
 const generateSideBarContent = () => generateContent.renderProjects();
 const generateProjectDetailsView = (projectID) => generateContent.renderLists(projectID);
 const generateListDetailsView = (listID) => generateContent.renderItems(listID);
+const reset = (elemID, className) => generateContent.reset(elemID, className);
 
-export { generateSideBarContent, generateProjectDetailsView, generateListDetailsView };
+export { generateSideBarContent, generateProjectDetailsView, generateListDetailsView, reset };
