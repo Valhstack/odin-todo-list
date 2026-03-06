@@ -80,13 +80,29 @@ body {
     height: 100vh;
 
     font-family: "Fraunces";
+
+    display: flex;
+    flex-direction: column;
 }
 
 main {
     height: calc(100% - 64px);
 
     display: flex;
+    justify-content: center;
     gap: 32px;
+}
+
+footer {
+    position: relative;
+    margin-top: auto;
+    align-self: center;
+    padding-bottom: 32px;
+}
+
+#footerText {
+    font-size: 14px;
+    color: var(--text-dim);
 }
 
 #main {

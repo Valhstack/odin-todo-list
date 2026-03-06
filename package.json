@@ -1,5 +1,5 @@
 {
-  "name": "template",
+  "name": "odin-todo-app",
   "version": "1.0.2",
   "description": "The repository for the Todo list project for The Odin Project ",
   "main": "index.js",
