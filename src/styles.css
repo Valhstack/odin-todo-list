@@ -89,20 +89,26 @@ main {
     height: calc(100% - 64px);
 
     display: flex;
-    justify-content: center;
     gap: 32px;
 }
 
 footer {
-    position: relative;
-    margin-top: auto;
-    align-self: center;
-    padding-bottom: 32px;
+    padding: 20px 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #3A332F;
+    width: 100%;
+
+    background-image: linear-gradient(to left, var(--nav-grad-1), var(--nav-grad-2), var(--nav-grad-3));
+    backdrop-filter: blur(2px);
+    opacity: 0.8;
 }
 
 #footerText {
     font-size: 14px;
-    color: var(--text-dim);
+    color: #A3958B;
+    text-align: center;
 }
 
 #main {
