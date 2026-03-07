@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearth</title>
+<script defer src="main.js"></script></head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <div class="navbar-left">
+                <button class="burger-menu-btn" id="burger-menu-btn"><img src="2d4061552fac064ed076.svg"
+                        id="burger-menu-img"></button>
+                <div class="navbar-logo-wrapper">
+                    <p class="navbar-dot">•</p>
+                    <h1 class="navbar-logo">Hearth</h1>
+                </div>
+            </div>
+            <div class="navbar-right">
+                <button id="theme-toggle-btn" class="theme-toggle-btn"><img src="1c3900177461bf58becc.svg"
+                        id="theme-toggle-img"></button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="sidebar" id="sidebar">
+            <div class="add-project-btn-wrapper" id="add-project-btn-wrapper">
+                <button class="add-project-btn" id="add-project-btn">+ Add project</button>
+            </div>
+
+            <dialog id="add-project-dialog" class="add-project-dialog">
+                <h3 class="add-project-dialog-heading">Create New Project</h3>
+                <form method="dialog" id="form-project" class="form-project">
+                    <div class="form-div">
+                        <label for="project_title">Project name:</label>
+                        <input type="text" id="project_title" name="project_title" required>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="project_description">Project description:</label>
+                        <textarea id="project_description" name="project_description"></textarea>
+                    </div>
+
+                    <div class="form-div-buttons">
+                        <button value="save" id="save-btn">Save project</button>
+                        <button value="cancel" id="cancel-btn" formnovalidate>Cancel</button>
+                    </div>
+                </form>
+            </dialog>
+        </div>
+
+        <div class="main" id="main">
+            <div class="project-content inactive" id="project-content">
+                <div class="project-view-heading-wrapper">
+                    <div class="project-view-top">
+                        <h3 id="project-view-heading" class="project-view-heading">
+                            <span id="project-view-heading-text"></span>
+                        </h3>
+
+                        <div class="project-control-btns-wrapper">
+                            <button class="edit-project-btn" id="edit-project-btn">Edit</button>
+                            <button class="delete-project-btn" id="delete-project-btn">Delete</button>
+                        </div>
+                    </div>
+                    <div class="project-view-bottom">
+                        <p id="project-view-description" class="project-view-description">
+                            <span id="project-view-description-text"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="project-view-lists" id="project-view-lists">
+                    <div id="list-btns-wrapper" class="list-btns-wrapper">
+                        <div class="add-list-btn-wrapper" id="add-list-btn-wrapper">
+                            <button class="add-list-btn" id="add-list-btn">+ Add list</button>
+                        </div>
+                    </div>
+
+                    <div class="list-description-wrapper" id="list-description-wrapper">
+                        <p class="list-description" id="list-description"><span id="list-description-text"></span></p>
+                    </div>
+                </div>
+
+                <div class="list-view-tasks" id="list-view-tasks">
+                    <h3 id="list-view-heading" class="list-view-heading">Tasks</h3>
+                    <div class="add-item-btn-wrapper" id="add-item-btn-wrapper">
+                        <button class="add-item-btn" id="add-item-btn">+ Add Task</button>
+                    </div>
+                </div>
+            </div>
+
+            <dialog id="add-list-dialog" class="add-list-dialog">
+                <h3 class="add-list-dialog-heading">Create New List</h3>
+                <form method="dialog" id="form-list" class="form-list">
+                    <div class="form-div">
+                        <label for="list_title">List name:</label>
+                        <input type="text" id="list_title" name="list_title" required>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="list_description">List description:</label>
+                        <textarea id="list_description" name="list_description"></textarea>
+                    </div>
+
+                    <div class="form-div-buttons">
+                        <button value="save" id="save-list-btn">Save list</button>
+                        <button value="cancel" id="cancel-list-btn" formnovalidate>Cancel</button>
+                    </div>
+                </form>
+            </dialog>
+
+            <dialog id="add-task-dialog" class="add-task-dialog">
+                <h3 class="add-task-dialog-heading">Create New Task</h3>
+                <form method="dialog" id="form-task" class="form-task">
+                    <div class="form-div">
+                        <label for="task_title">Task name:</label>
+                        <input type="text" id="task_title" name="task_title" required>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="task_description">Task description:</label>
+                        <textarea id="task_description" name="task_description"></textarea>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="task_dueDate">Task Due Date:</label>
+                        <input type="date" id="task_dueDate" name="task_dueDate" required>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="task_priority">Choose task's priority:</label>
+                        <select name="task_priority" id="task_priority" required>
+                            <option value="">--Please choose the priority--</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="task_notes">Task notes:</label>
+                        <textarea id="task_notes" name="task_notes"></textarea>
+                    </div>
+
+                    <div class="form-div-buttons">
+                        <button value="save" id="save-task-btn">Save task</button>
+                        <button value="cancel" id="cancel-task-btn" formnovalidate>Cancel</button>
+                    </div>
+                </form>
+            </dialog>
+
+            <dialog id="delete-task-dialog" class="delete-task-dialog">
+                <div class="delete-task-dialog-wrapper">
+                    <div class="delete-task-wrapper">
+                        <h3 class="delete-task-heading">Delete task?</h3>
+                        <p class="delete-task-subtext">This action cannot be undone.</p>
+                    </div>
+                    <div class="delete-task-btns-wrapper">
+                        <button value="delete" id="delete-task-btn">Delete</button>
+                        <button value="cancel" id="cancel-delete-task-btn">Cancel</button>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="delete-project-dialog" class="delete-project-dialog">
+                <div class="delete-project-dialog-wrapper">
+                    <div class="delete-project-wrapper">
+                        <h3 class="delete-project-heading">Delete project?</h3>
+                        <p class="delete-project-subtext">This action cannot be undone. It will also delete all
+                            associated lists and todo items.</p>
+                    </div>
+                    <div class="delete-project-btns-wrapper">
+                        <button value="delete" id="delete-project-dialog-btn">Delete</button>
+                        <button value="cancel" id="cancel-delete-project-btn">Cancel</button>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="delete-list-dialog" class="delete-list-dialog">
+                <div class="delete-list-dialog-wrapper">
+                    <div class="delete-list-wrapper">
+                        <h3 class="delete-list-heading">Delete list?</h3>
+                        <p class="delete-list-subtext">This action cannot be undone. It will also delete all
+                            associated todo items.</p>
+                    </div>
+                    <div class="delete-list-btns-wrapper">
+                        <button value="delete" id="delete-list-dialog-btn">Delete</button>
+                        <button value="cancel" id="cancel-delete-list-btn">Cancel</button>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="no-list-dialog" class="no-list-dialog">
+                <div class="no-list-dialog-wrapper">
+                    <div class="no-list-wrapper">
+                        <h3 class="no-list-heading">No list selected</h3>
+                        <p class="no-list-subtext">Please select a list before adding a task.</p>
+                    </div>
+                    <div class="no-list-btns-wrapper">
+                        <button value="ok" id="no-list-dialog-btn">OK</button>
+                    </div>
+                </div>
+            </dialog>
+        </div>
+    </main>
+
+    <footer>
+        <div class="full-attribution">
+            <p class="text" id="footerText">&#169; 2026 Hearth Copyright Valhstack</p>
+        </div>
+    </footer>
+</body>
+
+</html>
